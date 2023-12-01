@@ -12,6 +12,9 @@ jobs:
   manage-testing-project:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+    
       - name: Handle event
         run: |
           PROJECT_NAME="Testing"
