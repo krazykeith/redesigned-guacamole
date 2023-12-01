@@ -24,7 +24,7 @@ jobs:
            LABELS=$(gh pr view $PR_NUMBER --json labels -q '.labels[].name')
 
            if [[ "$LABELS" == *"qa-needed"* ]]; then
-            gh project card create --content-id $PR_NUMBER --content-type PullRequest --column "Unassigned" --repo $GITHUB_REPOSITORY
+            gh project card create --content-id $PR_NUMBER --content-type PullRequest --column "Unassigned" --repo $GITHUB_REPOSITORY --project $PROJECT_NAME
            fi
           elif [[ "${{ github.event_name }}" == "project_card" ]]; then
           else
