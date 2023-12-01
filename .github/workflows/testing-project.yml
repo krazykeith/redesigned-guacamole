@@ -14,7 +14,15 @@ jobs:
     steps:
       - name: Handle event
         run: |
+          PROJECT_NAME="Testing"
+
           if [ "${{ github.event_name }}" == "pull_request" ]; then
+           PR_NUMBER=$(jq -r '.number' "GITHUB_EVENT_PATH")
+           LABELS=$(gh pr view $PR_NUMBER --json labels -q '.labels[].name')
+
+           if [[ "$LABELS" == *"qa-needed"* ]]; then
+            gh project card create --content-id $PR_NUMBER --content-type PullRequest --column "Unassigned" --repo $GITHUB_REPOSITORY
+           fi
           elif [ "${{ github.event_name }}" == "project_card" ]; then
           else
             echo 'Event type not supported'
