@@ -17,7 +17,7 @@ jobs:
           PROJECT_NAME="Testing"
 
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-           PR_NUMBER=$(jq -r '.number' "GITHUB_EVENT_PATH")
+           PR_NUMBER=$(jq -r '.number' "$GITHUB_EVENT_PATH")
            LABELS=$(gh pr view $PR_NUMBER --json labels -q '.labels[].name')
 
            if [[ "$LABELS" == *"qa-needed"* ]]; then
